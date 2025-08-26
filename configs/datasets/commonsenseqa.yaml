@@ -1,0 +1,23 @@
+# CommonsenseQA dataset configuration
+dataset_name: "commonsenseqa"
+model_type: "entailment"  # or "multiple_choice"
+
+# Data loading
+data:
+  train_split: "train"
+  val_split: "validation"
+  test_split: "test"
+  max_length: 256
+  batch_size: 16
+
+# Preprocessing
+preprocessing:
+  template: "Question: {question} Answer: {choice}"
+  num_choices: 5
+  label_field: "label"
+
+# Evaluation
+evaluation:
+  metrics: ["accuracy", "f1", "ece"]
+  save_predictions: true
+  output_file: "reports/commonsenseqa_predictions.jsonl" 

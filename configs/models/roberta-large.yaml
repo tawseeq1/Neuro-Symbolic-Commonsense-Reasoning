@@ -1,0 +1,41 @@
+# RoBERTa Large model configuration
+model_name: "roberta-large"
+type: "entailment"  # or "multiple_choice" or "bi_encoder"
+num_labels: 2
+num_choices: 5  # for multiple choice models
+
+# Training configuration
+training:
+  batch_size: 16
+  learning_rate: 2e-5
+  num_epochs: 10
+  warmup_steps: 100
+  max_grad_norm: 1.0
+  fp16: true
+  seed: 42
+
+# Optimizer configuration
+optimizer:
+  type: "adamw"
+  lr: 2e-5
+  weight_decay: 0.01
+  eps: 1e-8
+
+# Scheduler configuration
+scheduler:
+  type: "cosine"
+  warmup_steps: 100
+  num_training_steps: 1000
+
+# Data configuration
+data:
+  max_length: 256
+  truncation: true
+  padding: true
+
+# Logging configuration
+logging:
+  use_wandb: true
+  wandb_project: "neuro-symbolic"
+  log_every: 100
+  save_every: 5 

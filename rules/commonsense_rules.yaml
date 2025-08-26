@@ -1,0 +1,88 @@
+# Commonsense reasoning rules for neuro-symbolic models
+
+rules:
+  # Physical commonsense
+  - name: "bird_can_fly"
+    antecedent: "Bird(x)"
+    consequent: "CanFly(x)"
+    weight: 0.8
+    rule_type: "default"
+    description: "Birds can usually fly"
+    
+  - name: "penguin_cannot_fly"
+    antecedent: "Penguin(x)"
+    consequent: "¬CanFly(x)"
+    weight: 1.0
+    rule_type: "exception"
+    description: "Penguins cannot fly (exception to bird rule)"
+    
+  - name: "fish_in_water"
+    antecedent: "Fish(x)"
+    consequent: "AtLocation(x, water)"
+    weight: 0.9
+    rule_type: "default"
+    description: "Fish are typically found in water"
+    
+  # Capability rules
+  - name: "capable_of_action"
+    antecedent: "CapableOf(x, y)"
+    consequent: "CanDo(x, y)"
+    weight: 0.9
+    rule_type: "default"
+    description: "If something is capable of an action, it can do it"
+    
+  - name: "requires_tool"
+    antecedent: "Requires(x, y) & Has(y)"
+    consequent: "Easier(x)"
+    weight: 0.8
+    rule_type: "default"
+    description: "Having required tools makes tasks easier"
+    
+  # Social commonsense
+  - name: "help_gratitude"
+    antecedent: "PersonHelps(x, y)"
+    consequent: "GratefulTo(y, x)"
+    weight: 0.7
+    rule_type: "default"
+    description: "People are grateful when helped"
+    
+  - name: "hurt_anger"
+    antecedent: "PersonHurts(x, y)"
+    consequent: "AngryAt(y, x)"
+    weight: 0.8
+    rule_type: "default"
+    description: "People get angry when hurt"
+    
+  # Temporal commonsense
+  - name: "cause_effect"
+    antecedent: "Causes(x, y)"
+    consequent: "HappensAfter(y, x)"
+    weight: 0.9
+    rule_type: "default"
+    description: "Effects happen after their causes"
+    
+  - name: "prerequisite"
+    antecedent: "Prerequisite(x, y)"
+    consequent: "HappensBefore(x, y)"
+    weight: 0.9
+    rule_type: "default"
+    description: "Prerequisites happen before what they enable"
+
+# Rule groups for different reasoning types
+rule_groups:
+  physical:
+    - "bird_can_fly"
+    - "penguin_cannot_fly"
+    - "fish_in_water"
+    
+  capability:
+    - "capable_of_action"
+    - "requires_tool"
+    
+  social:
+    - "help_gratitude"
+    - "hurt_anger"
+    
+  temporal:
+    - "cause_effect"
+    - "prerequisite" 
